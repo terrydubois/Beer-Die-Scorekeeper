@@ -1,5 +1,3 @@
-if (live_call()) return live_result;
-
 var bufferHorizonal = 60;
 
 draw_set_font(fnt_gridCell);
@@ -29,7 +27,7 @@ draw_text(floor(mean(newGameX1, newGameX2)), floor(mean(newGameY1, newGameY2)), 
 gameGridX1 = bufferHorizonal;
 gameGridY1 = 350;
 gameGridX2 = room_width - bufferHorizonal;
-gameGridY2 = room_height * 0.8;
+gameGridY2 = room_height * 0.87;
 gameGridRectWidth = gameGridX2 - gameGridX1;
 gameGridRectHeight = gameGridY2 - gameGridY1;
 
