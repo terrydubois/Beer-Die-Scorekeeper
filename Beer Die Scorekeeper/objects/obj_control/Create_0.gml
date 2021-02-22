@@ -1,16 +1,18 @@
 team1Score = 0;
 team2Score = 0;
 
+// set up gameGrid
 gameGridWidth = 7;
 gameGridHeight = 4;
 gameGrid_colName = 0;
 gameGrid_colPoints = 1;
 gameGrid_colCatches = 2;
 gameGrid = ds_grid_create(gameGridWidth, gameGridHeight);
+bufferHorizonal = 60;
 
-
+// column names for grid
 colNameList = ds_list_create();
-ds_list_add(colNameList, "Name", "Points", "Catches", "Clinks", "Plants", "Shotguns", "Sinks");
+ds_list_add(colNameList, "Name", "Points", "Catches", "Clinks", "Plants", "Fives", "Sinks");
 
 
 

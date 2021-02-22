@@ -1,29 +1,7 @@
-var bufferHorizonal = 60;
 
-draw_set_font(fnt_gridCell);
-var newGameX1 = bufferHorizonal;
-var newGameX2 = newGameX1 + string_width(" New Game ");
-var newGameY1 = bufferHorizonal;
-var newGameY2 = newGameY1 + string_height("A");
-draw_set_color(c_white);
-scr_drawRectWidth(newGameX1, newGameY1, newGameX2, newGameY2, 3);
-if (point_in_rectangle(mouse_x, mouse_y, newGameX1, newGameY1, newGameX2, newGameY2)) {
-	draw_set_color(colorDarkGray);
-	draw_rectangle(newGameX1, newGameY1, newGameX2, newGameY2, false);
-	if (mouse_check_button_pressed(mb_left)) {
-		if (show_question("Start new game?")) {
-			scr_saveGrid();
-			scr_resetGrid();
-		}
-	}
-}
-draw_set_color(c_white);
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
-draw_set_font(fnt_colName);
-draw_text(floor(mean(newGameX1, newGameX2)), floor(mean(newGameY1, newGameY2)), " New Game ");
+scr_newGameButton();
 
-
+// grid coordinates
 gameGridX1 = bufferHorizonal;
 gameGridY1 = 350;
 gameGridX2 = room_width - bufferHorizonal;
@@ -41,16 +19,19 @@ if (!point_in_rectangle(mouse_x, mouse_y, gameGridX1, gameGridY1, gameGridX2, ga
 }
 
 for (var i = 0; i < ds_grid_width(gameGrid); i++) {
-	
 	for (var j = 0; j < ds_grid_height(gameGrid); j++) {
-	
+		
+		// get data for this cell
 		var currentCellVal = ds_grid_get(gameGrid, i, j);
 		var currentCellStr = string(currentCellVal);
 		
+		// get coordinates for this cell
 		var rectX1 = gameGridX1 + (colWidth * (i + 1));
 		var rectY1 = gameGridY1 + (colHeight * j);
 		var rectX2 = rectX1 + colWidth;
 		var rectY2 = rectY1 + colHeight;
+		var rectWidth = rectX2 - rectX1;
+		var rectHeight = rectY2 - rectY1;
 		var mouseoverCell = point_in_rectangle(mouse_x, mouse_y, rectX1, rectY1, rectX2, rectY2);
 		var mouseoverCellInc = false;
 		var mouseoverCellDec = false;
@@ -66,8 +47,18 @@ for (var i = 0; i < ds_grid_width(gameGrid); i++) {
 			}
 			else {
 				mouseoverCellDec = true;
-			}	
+			}
 			
+			// draw tip
+			if (i != gameGrid_colName) {
+				var rowName = string(ds_grid_get(gameGrid, gameGrid_colName, j));
+				var colName = string(ds_list_find_value(colNameList, i));
+				draw_set_color(c_white);
+				draw_set_font(fnt_tip);
+				draw_text(floor(mean(rectX1, rectX2)), floor(rectY1 + (rectHeight * 0.8)), rowName + " - " + colName);
+			}
+			
+			// click to increase/decrease value or change player name
 			if (mouse_check_button_pressed(mb_left)) {	
 				if (i == gameGrid_colName) {
 					currentCellVal = get_string("Enter this player's name", "");
@@ -86,20 +77,31 @@ for (var i = 0; i < ds_grid_width(gameGrid); i++) {
 			draw_rectangle(rectX1, rectY1, rectX2, rectY2, false);
 		}
 		
-		
+		// draw text for this cell
 		var textX = floor(mean(rectX1, rectX2));
-		var textY = floor(mean(rectY1, rectY2));
-		
+		var textY = floor(rectY1 + (rectHeight * 0.45));
 		draw_set_halign(fa_center);
 		draw_set_valign(fa_middle);
 		draw_set_font((i == gameGrid_colName) ? fnt_playerName : fnt_gridCell);
 		draw_set_color(c_white);
 		draw_text(textX, textY, currentCellStr);
 		
+		// draw troll text if this player is trolling
+		if (i == gameGrid_colName) {
+			var points = ds_grid_get(gameGrid, gameGrid_colPoints, j);
+			if (points < 1) {
+				var trollTextX = textX;
+				var trollTextY = floor(rectY1 + (rectHeight * 0.85));
+				draw_set_font(fnt_tip);
+				draw_set_color(c_red);
+				draw_text(trollTextX, trollTextY, "TROLL");
+			}
+		}
 		
+		// draw inc/dec arrows if mouse is hovered on this cell
 		if (i != gameGrid_colName && mouseoverCell) {
 			var incSprX = floor(rectX1 + (colWidth * 0.8));
-			var incSprY = floor(mean(rectY1, rectY2));
+			var incSprY = textY;
 			var decSprX = floor(rectX1 + (colWidth * 0.2));
 			var decSprY = incSprY;
 			var incDecScale = 0.7;
@@ -108,7 +110,7 @@ for (var i = 0; i < ds_grid_width(gameGrid); i++) {
 		}
 		
 		
-		
+		// draw cell outline
 		draw_set_color(c_white);
 		scr_drawRectWidth(rectX1, rectY1, rectX2, rectY2, 3);
 		

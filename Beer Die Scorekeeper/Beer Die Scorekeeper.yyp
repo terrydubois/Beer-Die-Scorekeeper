@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"fnt_playerName","path":"fonts/fnt_playerName/fnt_playerName.yy",},"order":1,},
+    {"id":{"name":"fnt_tip","path":"fonts/fnt_tip/fnt_tip.yy",},"order":5,},
     {"id":{"name":"fnt_gridCell","path":"fonts/fnt_gridCell/fnt_gridCell.yy",},"order":3,},
     {"id":{"name":"fnt_teamName","path":"fonts/fnt_teamName/fnt_teamName.yy",},"order":0,},
     {"id":{"name":"fnt_teamScore","path":"fonts/fnt_teamScore/fnt_teamScore.yy",},"order":2,},
@@ -10,6 +11,7 @@
     {"id":{"name":"scr_resetGrid","path":"scripts/scr_resetGrid/scr_resetGrid.yy",},"order":2,},
     {"id":{"name":"spr_inc","path":"sprites/spr_inc/spr_inc.yy",},"order":0,},
     {"id":{"name":"spr_dec","path":"sprites/spr_dec/spr_dec.yy",},"order":1,},
+    {"id":{"name":"scr_newGameButton","path":"scripts/scr_newGameButton/scr_newGameButton.yy",},"order":4,},
     {"id":{"name":"scr_drawTeamRects","path":"scripts/scr_drawTeamRects/scr_drawTeamRects.yy",},"order":0,},
     {"id":{"name":"fnt_colName","path":"fonts/fnt_colName/fnt_colName.yy",},"order":4,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
@@ -48,7 +50,7 @@
     {"folderPath":"folders/Rooms.yy","order":10,"resourceVersion":"1.0","name":"Rooms","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sequences.yy","order":11,"resourceVersion":"1.0","name":"Sequences","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Animation Curves.yy","order":12,"resourceVersion":"1.0","name":"Animation Curves","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Notes.yy","order":13,"resourceVersion":"1.0","name":"Notes","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Fonts/Notes.yy","order":6,"resourceVersion":"1.0","name":"Notes","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Extensions.yy","order":14,"resourceVersion":"1.0","name":"Extensions","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
